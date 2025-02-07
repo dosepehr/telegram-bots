@@ -10,7 +10,7 @@ export const homeMenu = {
     },
 };
 
-export const sourseLangMenu = {
+export const sourceLangMenu = {
     reply_markup: {
         inline_keyboard: [
             [
@@ -26,3 +26,4 @@ export const sourseLangMenu = {
         ],
     },
 };
+

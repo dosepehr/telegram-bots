@@ -1,7 +1,8 @@
 import TelegramBot from 'node-telegram-bot-api';
 import mysql from '../utils/mysql.js';
 import redis from '../utils/redis.js';
-import { homeMenu, sourseLangMenu } from './components/index.js';
+import { homeMenu, sourceLangMenu } from './components/index.js';
+import { sendKeyboard } from './utils/index.js';
 
 const token = '7984012494:AAGa9jcfdpuxCzcHbcgB6EHw_FdDXVPw5eQ';
 
@@ -22,11 +23,15 @@ bot.on('callback_query', (query) => {
     const messageId = query.message.message_id;
 
     if (command == 'google') {
-        redis.set(`user:${chatId}:action`, command);
-        bot.editMessageText('ممنون!\n حالا زبان مبدا ترجمه رو انتخاب کنید', {
-            chat_id: chatId,
-            message_id: messageId,
-            reply_markup: sourseLangMenu.reply_markup,
+        sendKeyboard({
+            bot,
+            redis,
+            chatId,
+            command,
+            field: 'engine',
+            keyboard: sourceLangMenu.reply_markup,
+            messageId,
+            text:"ممنون!\n حالا زبان مبدا رو برای ترجمه انتخاب کن"
         });
     }
     if (command == 'fa') {

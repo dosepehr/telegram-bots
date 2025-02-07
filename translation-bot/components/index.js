@@ -2,10 +2,10 @@ export const homeMenu = {
     reply_markup: {
         inline_keyboard: [
             [
-                { text: 'دریافت عکس 🖼️', callback_data: '/photo' },
-                { text: 'دریافت آهنگ 🎵', callback_data: '/audio' },
+                { text: 'ترجمه با گوگل', callback_data: '/google' },
+                { text: 'ترجمه با مایکروسافت', callback_data: '/microsoft' },
+                { text: 'ترجمه با یندکس', callback_data: '/yandex' },
             ],
-            [{ text: '🫡 دریافت استیکر', callback_data: '/sticker' }],
         ],
     },
 };

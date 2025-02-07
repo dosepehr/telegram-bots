@@ -1,22 +1,13 @@
-const TelegramBot = require('node-telegram-bot-api');
+import TelegramBot from 'node-telegram-bot-api';
+import db from '../utils/db.js';
+import { homeMenu } from './components/index.js';
 
 const token = '7984012494:AAGa9jcfdpuxCzcHbcgB6EHw_FdDXVPw5eQ';
 
 const bot = new TelegramBot(token, { polling: true });
-const db = require('../utils/db');
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    const inlineKeyboard = {
-        reply_markup: {
-            inline_keyboard: [
-                [
-                    { text: 'دریافت عکس 🖼️', callback_data: '/photo' },
-                    { text: 'دریافت آهنگ 🎵', callback_data: '/audio' },
-                ],
-                [{ text: '🫡 دریافت استیکر', callback_data: '/sticker' }],
-            ],
-        },
-    };
+    const inlineKeyboard = homeMenu;
 
     bot.sendMessage(chatId, 'start command', inlineKeyboard);
 });

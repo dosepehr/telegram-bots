@@ -8,7 +8,7 @@ export const sendKeyboard = ({
     field,
     keyboard,
 }) => {
-    redis.set(`user:${chatId}:${field}`, command);
+    redis.set(`user:${chatId}:${field}`, command, { EX: 180 });
     bot.editMessageText(text, {
         chat_id: chatId,
         message_id: messageId,

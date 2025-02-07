@@ -26,4 +26,19 @@ export const sourceLangMenu = {
         ],
     },
 };
-
+export const targetLangMenu = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                { text: 'فارسی 🦁☀️', callback_data: 'fa-t' },
+                { text: '🇺🇸 انگلیسی', callback_data: 'en-t' },
+                { text: '🇸🇦 عربی', callback_data: 'ar-t' },
+            ],
+            [
+                { text: '🇩🇪 آلمانی', callback_data: 'de-t' },
+                { text: '🇮🇹 ایتالیایی', callback_data: 'it-t' },
+                { text: '🇫🇷 فرانسوی', callback_data: 'fr-t' },
+            ],
+        ],
+    },
+};

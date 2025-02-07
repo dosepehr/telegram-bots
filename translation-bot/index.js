@@ -1,5 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
-import db from '../utils/db.js';
+import mysql from '../utils/mysql.js';
+import redis from '../utils/redis.js'
 import { homeMenu } from './components/index.js';
 
 const token = '7984012494:AAGa9jcfdpuxCzcHbcgB6EHw_FdDXVPw5eQ';

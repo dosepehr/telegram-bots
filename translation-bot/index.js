@@ -33,7 +33,7 @@ bot.on('callback_query', (query) => {
         'ar-t',
         'de-t',
         'it-t',
-        'ft-2',
+        'fr-t',
     ];
     if (translateEngines.includes(command)) {
         sendKeyboard({

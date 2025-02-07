@@ -1,6 +1,4 @@
 import TelegramBot from 'node-telegram-bot-api';
-import mysql from '../utils/mysql.js';
-import redis from '../utils/redis.js';
 import { homeMenu, sourceLangMenu } from './components/index.js';
 import { sendKeyboard } from './utils/index.js';
 
@@ -22,20 +20,38 @@ bot.on('callback_query', (query) => {
     const command = query.data;
     const messageId = query.message.message_id;
 
-    if (command == 'google') {
+    const translateEngines = ['google', 'microsoft', 'yandex'];
+    const translateLanguages = ['fa', 'en', 'ar', 'de', 'it', 'fr'];
+
+    if (translateEngines.includes(command)) {
         sendKeyboard({
             bot,
-            redis,
             chatId,
             command,
             field: 'engine',
-            keyboard: sourceLangMenu.reply_markup,
+            keyboard: sourceLangMenu,
             messageId,
-            text:"ممنون!\n حالا زبان مبدا رو برای ترجمه انتخاب کن"
+            text: 'ممنون!\n حالا زبان مبدا رو برای ترجمه انتخاب کن',
         });
     }
-    if (command == 'fa') {
-        redis.set(`user:${chatId}:lang`, command);
-        bot.sendMessage(chatId, 'okkkkk');
+    if (translateLanguages.includes(command)) {
+        sendKeyboard({
+            bot,
+            chatId,
+            command,
+            field: 'source',
+            messageId,
+            text: 'عالیه!\n حالا متنی رو که میخوای ترجمه کنی بنویس',
+        });
     }
+});
+
+bot.on('polling_error', (error) => {
+    console.log('Polling Error: ', error);
+});
+bot.on('webhook_error', (error) => {
+    console.log('WebHook Error: ', error);
+});
+bot.on('error', (error) => {
+    console.log('General Error: ', error);
 });

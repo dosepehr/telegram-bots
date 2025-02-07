@@ -1,5 +1,5 @@
+import redis from '../../utils/redis.js';
 export const sendKeyboard = ({
-    redis,
     bot,
     chatId,
     messageId,
@@ -12,6 +12,6 @@ export const sendKeyboard = ({
     bot.editMessageText(text, {
         chat_id: chatId,
         message_id: messageId,
-        reply_markup: keyboard.reply_markup,
+        reply_markup: keyboard?.reply_markup || null,
     });
 };

@@ -3,6 +3,7 @@ import redis from '../../utils/redis.js';
 import { sendRequest } from './utils/sendRequest.js';
 const bot = new Telegraf('7866634027:AAH2UNM9ka1_A4BK5bfnIWfcA5rUIcyMjFU');
 import _ from '../../utils/mongodb.js';
+import User from './models/User.js';
 bot.start((ctx) => {
     ctx.reply(
         'به ربات ChatGPT خوش اومدید!\n لطفا بگو میخوای از کدوم سرویس استفاده کنی',
@@ -41,6 +42,21 @@ bot.on('text', async (ctx) => {
     const engine = await redis.get(`user:${chatId}:engine`);
     if (engine) {
         const data = await sendRequest({ content: text, engine });
+        const username = ctx.update.message.from.username;
+        const userExists = await User.findOne({ chatId });
+        if (userExists) {
+            if (userExists.requests >= 5 && !userExists.isPremium) {
+                ctx.reply('برای ادامه دسترسی به ربات باید اکانت تهیه کنید');
+                return;
+            }
+            userExists.requests = userExists.requests + 1;
+            userExists.save();
+        } else {
+            await User.create({
+                chatId,
+                username,
+            });
+        }
         ctx.reply('درخواست شما در حال پردازش است');
         if (data.status == 200) {
             ctx.reply(data.result);

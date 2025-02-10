@@ -8,8 +8,27 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 1,
         },
-        username: {
-            type: String,
+
+        user: {
+            is_bot: {
+                type: Boolean,
+            },
+            first_name: {
+                type: String,
+            },
+            last_name: {
+                type: String,
+            },
+            username: {
+                type: String,
+            },
+            language_code: {
+                type: String,
+            },
+            is_premium: {
+                type: Boolean,
+                default: false,
+            },
         },
         isPremium: {
             type: Boolean,

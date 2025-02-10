@@ -42,19 +42,19 @@ bot.on('text', async (ctx) => {
     const engine = await redis.get(`user:${chatId}:engine`);
     if (engine) {
         const data = await sendRequest({ content: text, engine });
-        const username = ctx.update.message.from.username;
-        const userExists = await User.findOne({ chatId });
-        if (userExists) {
-            if (userExists.requests >= 5 && !userExists.isPremium) {
+        const user = ctx.update.message.from;
+        const existingUser = await User.findOne({ chatId });
+        if (existingUser) {
+            if (existingUser.requests >= 5 && !existingUser.isPremium) {
                 ctx.reply('برای ادامه دسترسی به ربات باید اکانت تهیه کنید');
                 return;
             }
-            userExists.requests = userExists.requests + 1;
-            userExists.save();
+            existingUser.requests = existingUser.requests + 1;
+            existingUser.save();
         } else {
             await User.create({
                 chatId,
-                username,
+                user,
             });
         }
         ctx.reply('درخواست شما در حال پردازش است');

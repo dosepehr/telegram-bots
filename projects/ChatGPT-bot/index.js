@@ -2,7 +2,7 @@ import { Markup, Telegraf } from 'telegraf';
 import redis from '../../utils/redis.js';
 import { sendRequest } from './utils/sendRequest.js';
 const bot = new Telegraf('7866634027:AAH2UNM9ka1_A4BK5bfnIWfcA5rUIcyMjFU');
-
+import _ from '../../utils/mongodb.js';
 bot.start((ctx) => {
     ctx.reply(
         'به ربات ChatGPT خوش اومدید!\n لطفا بگو میخوای از کدوم سرویس استفاده کنی',
